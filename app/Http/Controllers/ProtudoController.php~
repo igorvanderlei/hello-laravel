@@ -1,0 +1,57 @@
+<?php
+
+namespace teste\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class ProtudoController extends Controller
+{
+    public function listar () {
+			$produtos = \teste\Produto::all();
+			return view("produtos", ['listaProdutos' => $produtos]);    	
+    }
+    
+    public function adicionar() {
+			return view("adicionarProduto");    
+    }
+    
+    public function cadastrar(Request $request){
+    	$produto = new \teste\Produto();
+    	$produto->descricao = $request->descricao;
+    	$produto->preco = $request->preco;
+    	$produto->quantidade = $request->quantidade;
+    	$produto->save();
+
+    	return redirect("/testeProduto");
+   	
+    }
+    
+    public function editar($id) {
+			$produto = \teste\Produto::find($id);   
+    		return view("editarProduto", ['produto' => $produto]);
+    }
+    
+    public function salvar(Request $request){
+	  	$produto = \teste\Produto::find($request->id);
+    	$produto->descricao = $request->descricao;
+    	$produto->preco = $request->preco;
+    	$produto->quantidade = $request->quantidade;
+    	$produto->update();
+
+    	return redirect("/testeProduto");
+   	
+    }
+    
+    
+    public function remover(Request $request){
+  		$produto = \teste\Produto::find($request->id);
+    	return view("/confirmarRemoverProduto", ['produto' => $produto]);
+	}
+	
+	 public function remover(Request $request){
+  		$produto = \teste\Produto::find($request->id);
+    	$produto->delete();
+    	return redirect("/testeProduto");
+	}
+	
+}

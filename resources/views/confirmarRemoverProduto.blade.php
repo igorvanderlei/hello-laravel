@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+            <title>Hello</title>
+
+    </head>
+    <body>
+    	<h1>Confirmar Remover Produto</h1>
+    	
+    	<form action="/apagarProduto" method="post"> 
+    		<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+    			<input type="hidden" name="id" value="{{ $produto->id}}" />
+    			Descrição: <input type="text" disabled="disabled" name="descricao" value="{{$produto->descricao}}"><br/>
+    			Preço: <input type="text" disabled="disabled name="preco" value="{{$produto->preco}}"><br/>
+    			Quantidade: <input type="text" name="quantidade" disabled="disabled value="{{$produto->quantidade}}"><br/>
+    			<input  type="submit" value="remove mesmo, essa peste!" />
+    	</form>
+ 
+    </body>
+</html>
